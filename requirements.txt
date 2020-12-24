@@ -1,0 +1,7 @@
+streamlit
+tkinter
+pathlib
+selenium
+chromedriver_binary
+xlrd
+xlutils
