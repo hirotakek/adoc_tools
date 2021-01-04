@@ -15,9 +15,9 @@ st.write('始めます！！！') # markdown
 # consume_sum_g
 #
 # import openpyxl
-import Tkinter as tk
-from Tkinter import filedialog
-from Tkinter import messagebox
+import tkinter as tk
+from tkinter import filedialog
+from tkinter import messagebox
 import shutil
 import os
 import sys
