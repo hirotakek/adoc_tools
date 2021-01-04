@@ -1,5 +1,5 @@
 streamlit
-pythonds
+python3-tk
 pathlib
 selenium
 chromedriver_binary
