@@ -1,5 +1,5 @@
 streamlit
-tk-devel
+tkinter
 pathlib
 selenium
 chromedriver_binary
