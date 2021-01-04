@@ -1,5 +1,5 @@
 streamlit
-python
+python==3.8
 pathlib
 selenium
 chromedriver_binary
