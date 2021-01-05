@@ -1,4 +1,4 @@
-libpython3-stdlib
+libpython-stdlib
 python3-tk
 streamlit
 pathlib
