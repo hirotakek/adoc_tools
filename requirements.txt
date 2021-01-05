@@ -1,8 +1,7 @@
+Tk
 streamlit
 pathlib
 selenium
 chromedriver_binary
 xlrd
 xlutils
-Tk
-tkinter
