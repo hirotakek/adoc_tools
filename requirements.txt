@@ -1,5 +1,5 @@
 Tk
-python3-Tkinter
+python3-tkinter
 streamlit
 pathlib
 selenium
