@@ -1,2 +1,7 @@
 streamlit
-
+python-tk
+pathlib
+selenium
+chromedriver_binary
+xlrd
+xlutils
