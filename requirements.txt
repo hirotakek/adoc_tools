@@ -1,4 +1,5 @@
 Tk
+debianutils
 streamlit
 pathlib
 selenium
