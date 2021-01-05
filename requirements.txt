@@ -1,5 +1,4 @@
-Tk
-debianutils
+python3-tk
 streamlit
 pathlib
 selenium
