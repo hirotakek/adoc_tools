@@ -1,5 +1,4 @@
 streamlit
-tk-dev
 pathlib
 selenium
 chromedriver_binary
