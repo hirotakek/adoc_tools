@@ -1,4 +1,4 @@
-python3.7-tkinter
+python3_tk
 streamlit
 pathlib
 selenium
