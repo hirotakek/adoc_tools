@@ -5,4 +5,4 @@ chromedriver_binary
 xlrd
 xlutils
 Tk
-python3.7-tk
+Tkinter
