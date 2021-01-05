@@ -1,5 +1,5 @@
-Tk
-python3-tkinter
+libpython3.7-stdlib
+python3.7-tk
 streamlit
 pathlib
 selenium
