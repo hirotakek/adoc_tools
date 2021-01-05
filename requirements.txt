@@ -4,3 +4,4 @@ selenium
 chromedriver_binary
 xlrd
 xlutils
+python3.7-tk
