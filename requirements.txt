@@ -1,4 +1,4 @@
-python3.7-tk
+Python3.7-tk
 streamlit
 pathlib
 selenium
