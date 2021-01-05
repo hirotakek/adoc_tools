@@ -1,4 +1,4 @@
-tk8.6-dev
+libtk8.6-dev
 python3-tk
 streamlit
 pathlib
