@@ -1,5 +1,5 @@
 Tk
-Tk-dev
+Python3-tk
 streamlit
 pathlib
 selenium
