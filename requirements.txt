@@ -6,5 +6,4 @@ xlrd
 xlutils
 tk
 tcl
-matplotlib
-python3.7-tk
+python3.6-tk
