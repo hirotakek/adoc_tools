@@ -6,4 +6,4 @@ xlrd
 xlutils
 tk
 tcl
-python3.6-tk
+python3-tk
