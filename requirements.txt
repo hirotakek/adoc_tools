@@ -6,3 +6,4 @@ xlrd
 xlutils
 tk
 tcl
+matplotlib
