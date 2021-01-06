@@ -5,4 +5,4 @@ chromedriver_binary
 xlrd
 xlutils
 tk8.6-dev
-python3-tk
+libtk
