@@ -4,4 +4,5 @@ selenium
 chromedriver_binary
 xlrd
 xlutils
-libc6
+tk
+tcl
