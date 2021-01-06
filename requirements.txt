@@ -5,3 +5,4 @@ chromedriver_binary
 xlrd
 xlutils
 blt
+libtcl8.6
