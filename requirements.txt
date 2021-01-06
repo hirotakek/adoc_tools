@@ -7,3 +7,4 @@ xlutils
 tk
 tcl
 matplotlib
+python3.7-tk
