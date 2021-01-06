@@ -4,4 +4,4 @@ selenium
 chromedriver_binary
 xlrd
 xlutils
-tk8.6
+libtk8.6
