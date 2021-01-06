@@ -6,4 +6,3 @@ xlrd
 xlutils
 tk
 tcl
-tk-dev
