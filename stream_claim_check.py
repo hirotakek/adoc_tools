@@ -13,7 +13,8 @@ st.subheader("駆けつけ費用チェックツール")
 st.write("ファイルをアップロードして下さい")
 
 uploaded_file_s = st.file_uploader("SBファイルを指定", type="xlsx")
-uploaded_file_a = st.file_uploader("案件ファイルを指定", type="xlsx")
+uploaded_file_m = st.file_uploader("案件ファイルを指定", type="xlsx")
+uploaded_file_a = st.file_uploader("Airファイルを指定", type="xlsx")
 uploaded_file_g = st.file_uploader("提出用ファイルを指定", type="xlsx")
 
 
@@ -36,8 +37,12 @@ if st.checkbox("処理開始"):
         df_customer1 = df_customer1.fillna(0.0) # 何も入力が無いNaNを比較出来るように数値に置換え
         
         # 案件ファイルロード
-        df_customer2 = pd.read_excel(uploaded_file_a, header=title_row_pt2, usecols=['案件管理No.','かけつけ費金額\n(往復)','宿泊費金額', 'かけつけ費合計'])
+        df_customer2 = pd.read_excel(uploaded_file_m, header=title_row_pt2, usecols=['案件管理No.','かけつけ費金額\n(往復)','宿泊費金額', 'かけつけ費合計'])
         df_customer2 = df_customer2.fillna(0.0) # 何も入力が無いNaNを比較出来るように数値に置換え
+        
+        # Airファイルロード
+        df_customer3 = pd.read_excel(uploaded_file_a, header=title_row_pt1, usecols=['案件管理No.','かけつけ費金額\n(往復)','宿泊費金額', 'かけつけ費合計'])
+        df_customer3 = df_customer3.fillna(0.0) # 何も入力が無いNaNを比較出来るように数値に置換え
         
         # 顧客提出用ファイル
         df = pd.read_excel(uploaded_file_g, index_col=0, usecols=["NO","管理ID","対応日","カテゴリ","交通費(往復)"], skiprows=[1])
@@ -70,7 +75,7 @@ if st.checkbox("処理開始"):
                 continue
             
             # 管理IDが物品等
-            if "-" in mid1:
+            if "-" or "_" in mid1:
                 pass
             else:
                 st.write(mid1," = 対象外")
@@ -131,7 +136,7 @@ if st.checkbox("処理開始"):
                         
             else:
                 for sb_count2 in df_customer2.index:
-                    mod_mid = df_customer2.loc[sb_count2,"案件管理No."].replace("_","-")
+                    mod_mid = df_customer2.loc[sb_count2,"案件管理No."]   # .replace("_","-")
                     if mid1 == mod_mid:
                #     if mid1 == df_customer2.loc[sb_count2,"案件管理No."]:
                         if df_customer2.loc[sb_count2,'かけつけ費金額\n(往復)'] == usage:
@@ -147,6 +152,25 @@ if st.checkbox("処理開始"):
                                 st.write(accomodation_fee,"  ",df_customer2.loc[sb_count2,'宿泊費金額'])
                         else:
                             mid1_result = 10 # "かけつけ費金額\n(往復)"不一致
+    
+                else:
+                    for sb_count3 in df_customer3.index:
+                        mod_mid = df_customer3.loc[sb_count3,"案件管理No."]   # .replace("_","-")
+                        if mid1 == mod_mid:
+                   #     if mid1 == df_customer2.loc[sb_count2,"案件管理No."]:
+                            if df_customer3.loc[sb_count3,'かけつけ費金額\n(往復)'] == usage:
+                                if df_customer3.loc[sb_count3,'宿泊費金額'] == accomodation_fee:
+                                    if df_customer3.loc[sb_count3,'かけつけ費合計'] == claim_total:
+                                        st.write(mid1, " = OK")
+                                        mid1_result = 0
+                                        continue
+                                    else:
+                                        mid1_result = 12 # "かけつけ費合計"不一致
+                                else:
+                                    mid1_result = 11 # "宿泊費金額"不一致
+                                    st.write(accomodation_fee,"  ",df_customer3.loc[sb_count3,'宿泊費金額'])
+                            else:
+                                mid1_result = 10 # "かけつけ費金額\n(往復)"不一致
     
     
     #            else:
