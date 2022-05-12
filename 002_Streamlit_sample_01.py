@@ -10,6 +10,8 @@ import streamlit as st
 # 複数選択
 # st.multiselect('ラベル', ['選択肢1', '選択肢2', '選択肢3'])
 
+st.title("ADOC TOOL site")
+
 tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('選択肢1', '駆け付け費用チェック', '選択肢3'))
 
     
