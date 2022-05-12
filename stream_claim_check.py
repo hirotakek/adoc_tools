@@ -130,10 +130,29 @@ if st.checkbox("処理開始"):
                         else:
                             mid1_result = 11 # "宿泊費金額"不一致
                             st.write(accomodation_fee,"  ",df_customer1.loc[sb_count1,'宿泊費金額'])
-    
+#
+                            if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                mid1_result = mid1_result + 0
+                            else:
+                                mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+#
                     else:
                         mid1_result = 10 # "かけつけ費金額\n(往復)"不一致
-                        
+#
+                        if df_customer1.loc[sb_count1,'宿泊費金額'] == accomodation_fee:
+                            if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                mid1_result = mid1_result + 0
+                            else:
+                                mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+                        else:
+                            mid1_result = mid1_result + 11 # "宿泊費金額"不一致
+                            st.write(accomodation_fee,"  ",df_customer1.loc[sb_count1,'宿泊費金額'])
+#
+                            if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                mid1_result = mid1_result + 0
+                            else:
+                                mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+#
             else:
                 for sb_count2 in df_customer2.index:
                     mod_mid = df_customer2.loc[sb_count2,"案件管理No."]   # .replace("_","-")
@@ -150,9 +169,30 @@ if st.checkbox("処理開始"):
                             else:
                                 mid1_result = 11 # "宿泊費金額"不一致
                                 st.write(accomodation_fee,"  ",df_customer2.loc[sb_count2,'宿泊費金額'])
+#
+                                if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                    mid1_result = mid1_result + 0
+                                else:
+                                    mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+# 
                         else:
                             mid1_result = 10 # "かけつけ費金額\n(往復)"不一致
-    
+#
+                            if df_customer1.loc[sb_count1,'宿泊費金額'] == accomodation_fee:
+                                if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                    mid1_result = mid1_result + 0
+                                else:
+                                    mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+                            else:
+                                mid1_result = mid1_result + 11 # "宿泊費金額"不一致
+                                st.write(accomodation_fee,"  ",df_customer1.loc[sb_count1,'宿泊費金額'])
+    #
+                                if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                    mid1_result = mid1_result + 0
+                                else:
+                                    mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+#
+
                 else:
                     for sb_count3 in df_customer3.index:
                         mod_mid = df_customer3.loc[sb_count3,"案件管理No."]   # .replace("_","-")
@@ -169,14 +209,37 @@ if st.checkbox("処理開始"):
                                 else:
                                     mid1_result = 11 # "宿泊費金額"不一致
                                     st.write(accomodation_fee,"  ",df_customer3.loc[sb_count3,'宿泊費金額'])
+#
+                                    if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                        mid1_result = mid1_result + 0
+                                    else:
+                                        mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+#
                             else:
                                 mid1_result = 10 # "かけつけ費金額\n(往復)"不一致
-    
+#
+                                if df_customer1.loc[sb_count1,'宿泊費金額'] == accomodation_fee:
+                                    if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                        mid1_result = mid1_result + 0
+                                    else:
+                                        mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+                                else:
+                                    mid1_result = mid1_result + 11 # "宿泊費金額"不一致
+                                    st.write(accomodation_fee,"  ",df_customer1.loc[sb_count1,'宿泊費金額'])
+#
+                                    if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                        mid1_result = mid1_result + 0
+                                    else:
+                                        mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+#
     
     #            else:
     #                mid1_result = 0 # 案件管理No一致無し
                 
-            if mid1_result == 1:
+            if mid1_result == 0:
+                st.write()
+                st.write(mid1," = OK")
+            elif mid1_result == 1:
                 st.write()
                 st.write(mid1," = NG(顧客側リストに存在しない")
             elif mid1_result == 2:
@@ -187,6 +250,16 @@ if st.checkbox("処理開始"):
                 st.write(mid1, " = 宿泊費金額不一致")
             elif mid1_result == 10:
                 st.write(mid1, " = かけつけ費金額/(往復)不一致")
+            elif mid1_result == 21:
+                st.write(mid1, " = 宿泊費金額 / かけつけ費金額/(往復)不一致")
+            elif mid1_result == 22:
+                st.write(mid1, " = かけつけ費金額/(往復) / かけつけ費合計 不一致")
+            elif mid1_result == 23:
+                st.write(mid1, " = 宿泊費金額 / かけつけ費合計 不一致")
+            elif mid1_result == 33:
+                st.write(mid1, " = 宿泊費金額 / かけつけ費金額/(往復) / かけつけ費合計 不一致")
+            else:
+                st.write(mid1, "error = ", mid1_result)
                 
         st.subheader("処理が終わりました")
 
