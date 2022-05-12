@@ -1,89 +1,285 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Dec  4 13:56:00 2020
+Created on Thu May 12 15:41:57 2022
 
 @author: hirkatayama
 """
 
 import streamlit as st
-import pandas as pd
-import numpy as np
-import time
-# import os
-# import openpyxl as opx
-from PIL import Image
-# import mapboxgl
 
-# progress
-st.title("プログレスバーの表示")
-"start"
-latest_iteration = st.empty()
-bar = st.progress(0)
-for i in range(100):
-    latest_iteration.text(f"Iteration {i+1}")
-    bar.progress(i+1)
-    time.sleep(0.01)
-"Done!!!"
+# 複数選択
+# st.multiselect('ラベル', ['選択肢1', '選択肢2', '選択肢3'])
 
-# 2x3表、画像選択表示
-st.title('Streamlit 使い方サンプル')
-uploaded_file = st.file_uploader("choose an image", type="jpg")
-# uploaded_excel_file = st.file_uploader("choose an image", type="xlsx")
+tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('選択肢1', '駆け付け費用チェック', '選択肢3'))
 
-if st.checkbox("data presence"):
-    if uploaded_file is not None:
-        img = Image.open(uploaded_file)
-        st.image(img, caption="uploaded image", use_column_width=True)
-st.write("data frame")
-df = pd.DataFrame({"First column": [1, 2, 3, 4], "Second column": [10, 20, 30, 40]})
-st.dataframe(df, 400, 400)
-print('OK')
+    
+def kaketsuke():
+    import streamlit as st
+    import pandas as pd
+    
+    
+    st.subheader("駆けつけ費用チェックツール")
+    st.write("ファイルをアップロードして下さい")
+    
+    uploaded_file_s = st.file_uploader("SBファイルを指定", type="xlsx")
+    uploaded_file_m = st.file_uploader("案件ファイルを指定", type="xlsx")
+    uploaded_file_a = st.file_uploader("Airファイルを指定", type="xlsx")
+    uploaded_file_g = st.file_uploader("提出用ファイルを指定", type="xlsx")
+    
+    
+    
+    # もし、データが揃ったら処理開始ボタン押下
+    if st.checkbox("処理開始"):
+        if uploaded_file_s is not None and uploaded_file_a is not None and uploaded_file_g is not None:
+            st.write("start")
+    
+    # チェック処理開始
+    
+            # 定数
+            # sheet_name = "" # 処理対象シート名
+            # title_row = 0
+            title_row_pt1 = 2
+            title_row_pt2 = 3
+            
+            # SBファイルロード
+            df_customer1 = pd.read_excel(uploaded_file_s, header=title_row_pt1, usecols=['案件管理No.','かけつけ費金額\n(往復)','宿泊費金額', 'かけつけ費合計'])
+            df_customer1 = df_customer1.fillna(0.0) # 何も入力が無いNaNを比較出来るように数値に置換え
+            
+            # 案件ファイルロード
+            df_customer2 = pd.read_excel(uploaded_file_m, header=title_row_pt2, usecols=['案件管理No.','かけつけ費金額\n(往復)','宿泊費金額', 'かけつけ費合計'])
+            df_customer2 = df_customer2.fillna(0.0) # 何も入力が無いNaNを比較出来るように数値に置換え
+            
+            # Airファイルロード
+            df_customer3 = pd.read_excel(uploaded_file_a, header=title_row_pt1, usecols=['案件管理No.','かけつけ費金額\n(往復)','宿泊費金額', 'かけつけ費合計'])
+            df_customer3 = df_customer3.fillna(0.0) # 何も入力が無いNaNを比較出来るように数値に置換え
+            
+            # 顧客提出用ファイル
+            df = pd.read_excel(uploaded_file_g, index_col=0, usecols=["NO","管理ID","対応日","カテゴリ","交通費(往復)"], skiprows=[1])
+            df = df.fillna(0.0) # 何も入力が無いNaNを比較出来るように数値に置換え
+    
+    
+    
+            # 管理IDの重複確認、一つ目以外の重複は True となる
+            df_mod = df.duplicated(subset="管理ID",keep="first")
+            df_tail = df.tail(1).index # 最終行のインデックス値
+            
+            # compare
+            for pindex in df.index: # Primary file top to bottom
+            
+                # 初期値
+                usage = 0.0 # 交通費＋タクシー代
+                accomodation_fee = 0.0 # 宿泊費
+                claim_total = 0.0 # 合計金額
+                pindex_count = pindex # 現在行から下の行のためのカウンタ
+            
+                # 管理ID読み出し
+                mid1 = df.loc[pindex, "管理ID"]
+                mid1_result = 1 # このまま抜けると一致するID無し
+                
+                # 管理IDが文字列でなければ対象外とする
+                if type(mid1) != str and mid1 != 0.0:
+                    st.write(mid1," = 対象外")
+                    continue
+                elif mid1 == 0.0:
+                    continue
+                
+                # 管理IDが物品等
+                if "-" or "_" in mid1:
+                    pass
+                else:
+                    st.write(mid1," = 対象外")
+                    continue
+                
+                # 管理IDが同一かをチェックする
+                if df_mod[pindex] == True:
+                    st.write(df.loc[pindex, "管理ID"], " = 同一ID")
+                    continue
+        
+                
+                # visit_date = df.loc[pindex, "対応日"]
+                category = df.loc[pindex, "カテゴリ"]
+                
+                if category == "公共機関" or category == "タクシー":
+                    usage = df.loc[pindex, "交通費(往復)"]
+                    accomodation_fee = 0.0
+                elif category == "宿泊費":
+                    usage = 0.0
+                    accomodation_fee = df.loc[pindex, "交通費(往復)"]
+                
+                
+                while pindex_count < df_tail: # 現在行の後ろに同一管理番号があればマージする
+                   
+                    if mid1 == df.loc[pindex_count+1, "管理ID"]:
+                        category1 = df.loc[pindex_count+1, "カテゴリ"]
+                        if category1 == "公共機関" or category1 == "タクシー":
+                            usage = usage + df.loc[pindex_count+1, "交通費(往復)"]
+                        elif category1 == "宿泊費":
+                            accomodation_fee = accomodation_fee + df.loc[pindex+1, "交通費(往復)"]
+                    
+                    pindex_count = pindex_count + 1
+                # ここまでがWhileで、同一管理番号をマージする
+                    
+                claim_total = usage + accomodation_fee
+        
+                    
+                for sb_count1 in df_customer1.index:
+                    if mid1 == df_customer1.loc[sb_count1,"案件管理No."]:
+        #                st.write("mid1",df_customer1.loc[sb_count1,"案件管理No."])
+                        if df_customer1.loc[sb_count1,'かけつけ費金額\n(往復)'] == usage:
+        #                    st.write(df_customer1.loc[sb_count1,'かけつけ費金額\n(往復)'],"  ,  ",usage)
+                            if df_customer1.loc[sb_count1,'宿泊費金額'] == accomodation_fee:
+        #                        st.write(df_customer1.loc[sb_count1,'宿泊費金額'],"  ,  ",accomodation_fee)
+                                if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+        #                            st.write(df_customer1.loc[sb_count1,'かけつけ費合計'],"  ,  ",claim_total)
+                                    st.write(mid1, " = OK")
+                                    mid1_result = 0
+                                    continue
+                                else:
+                                    mid1_result = 12 # "かけつけ費合計"不一致
+                            else:
+                                mid1_result = 11 # "宿泊費金額"不一致
+                                st.write(accomodation_fee,"  ",df_customer1.loc[sb_count1,'宿泊費金額'])
+    #
+                                if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                    mid1_result = mid1_result + 0
+                                else:
+                                    mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+    #
+                        else:
+                            mid1_result = 10 # "かけつけ費金額\n(往復)"不一致
+    #
+                            if df_customer1.loc[sb_count1,'宿泊費金額'] == accomodation_fee:
+                                if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                    mid1_result = mid1_result + 0
+                                else:
+                                    mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+                            else:
+                                mid1_result = mid1_result + 11 # "宿泊費金額"不一致
+                                st.write(accomodation_fee,"  ",df_customer1.loc[sb_count1,'宿泊費金額'])
+    #
+                                if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                    mid1_result = mid1_result + 0
+                                else:
+                                    mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+    #
+                else:
+                    for sb_count2 in df_customer2.index:
+                        mod_mid = df_customer2.loc[sb_count2,"案件管理No."]   # .replace("_","-")
+                        if mid1 == mod_mid:
+                   #     if mid1 == df_customer2.loc[sb_count2,"案件管理No."]:
+                            if df_customer2.loc[sb_count2,'かけつけ費金額\n(往復)'] == usage:
+                                if df_customer2.loc[sb_count2,'宿泊費金額'] == accomodation_fee:
+                                    if df_customer2.loc[sb_count2,'かけつけ費合計'] == claim_total:
+                                        st.write(mid1, " = OK")
+                                        mid1_result = 0
+                                        continue
+                                    else:
+                                        mid1_result = 12 # "かけつけ費合計"不一致
+                                else:
+                                    mid1_result = 11 # "宿泊費金額"不一致
+                                    st.write(accomodation_fee,"  ",df_customer2.loc[sb_count2,'宿泊費金額'])
+    #
+                                    if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                        mid1_result = mid1_result + 0
+                                    else:
+                                        mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+    # 
+                            else:
+                                mid1_result = 10 # "かけつけ費金額\n(往復)"不一致
+    #
+                                if df_customer1.loc[sb_count1,'宿泊費金額'] == accomodation_fee:
+                                    if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                        mid1_result = mid1_result + 0
+                                    else:
+                                        mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+                                else:
+                                    mid1_result = mid1_result + 11 # "宿泊費金額"不一致
+                                    st.write(accomodation_fee,"  ",df_customer1.loc[sb_count1,'宿泊費金額'])
+        #
+                                    if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                        mid1_result = mid1_result + 0
+                                    else:
+                                        mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+    #
+    
+                    else:
+                        for sb_count3 in df_customer3.index:
+                            mod_mid = df_customer3.loc[sb_count3,"案件管理No."]   # .replace("_","-")
+                            if mid1 == mod_mid:
+                       #     if mid1 == df_customer2.loc[sb_count2,"案件管理No."]:
+                                if df_customer3.loc[sb_count3,'かけつけ費金額\n(往復)'] == usage:
+                                    if df_customer3.loc[sb_count3,'宿泊費金額'] == accomodation_fee:
+                                        if df_customer3.loc[sb_count3,'かけつけ費合計'] == claim_total:
+                                            st.write(mid1, " = OK")
+                                            mid1_result = 0
+                                            continue
+                                        else:
+                                            mid1_result = 12 # "かけつけ費合計"不一致
+                                    else:
+                                        mid1_result = 11 # "宿泊費金額"不一致
+                                        st.write(accomodation_fee,"  ",df_customer3.loc[sb_count3,'宿泊費金額'])
+    #
+                                        if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                            mid1_result = mid1_result + 0
+                                        else:
+                                            mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+    #
+                                else:
+                                    mid1_result = 10 # "かけつけ費金額\n(往復)"不一致
+    #
+                                    if df_customer1.loc[sb_count1,'宿泊費金額'] == accomodation_fee:
+                                        if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                            mid1_result = mid1_result + 0
+                                        else:
+                                            mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+                                    else:
+                                        mid1_result = mid1_result + 11 # "宿泊費金額"不一致
+                                        st.write(accomodation_fee,"  ",df_customer1.loc[sb_count1,'宿泊費金額'])
+    #
+                                        if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
+                                            mid1_result = mid1_result + 0
+                                        else:
+                                            mid1_result = mid1_result + 12 # "かけつけ費合計"不一致
+    #
+        
+        #            else:
+        #                mid1_result = 0 # 案件管理No一致無し
+                    
+                if mid1_result == 0:
+                    st.write()
+                    st.write(mid1," = OK")
+                elif mid1_result == 1:
+                    st.write()
+                    st.write(mid1," = NG(顧客側リストに存在しない")
+                elif mid1_result == 2:
+                    st.write()
+                elif mid1_result == 12:
+                    st.write(mid1, " = かけつけ費合計不一致")
+                elif mid1_result == 11:
+                    st.write(mid1, " = 宿泊費金額不一致")
+                elif mid1_result == 10:
+                    st.write(mid1, " = かけつけ費金額/(往復)不一致")
+                elif mid1_result == 21:
+                    st.write(mid1, " = 宿泊費金額 / かけつけ費金額/(往復)不一致")
+                elif mid1_result == 22:
+                    st.write(mid1, " = かけつけ費金額/(往復) / かけつけ費合計 不一致")
+                elif mid1_result == 23:
+                    st.write(mid1, " = 宿泊費金額 / かけつけ費合計 不一致")
+                elif mid1_result == 33:
+                    st.write(mid1, " = 宿泊費金額 / かけつけ費金額/(往復) / かけつけ費合計 不一致")
+                else:
+                    st.write(mid1, "error = ", mid1_result)
+                    
+            st.subheader("処理が終わりました")
+    
+        else:
+            st.subheader("チェック用ファイルが揃っていません")
 
-# マジックコマンド　：　Pythonコード表示
-"""
-```python
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-
-```
-"""
-
-# Graph 描画
-dg = pd.DataFrame(
-    np.random.rand(20,3),
-    columns=["a", "b", "c"]
-)
-
-# ２カラム表示
-left_column, right_column = st.beta_columns(2)
-button = left_column.button("右側にグラフを表示")
-with right_column:
-    if button:
-        st.line_chart(dg)
-
-# st.area_chart(dg)
-# st.bar_chart(dg)
-
-# Map
-dm = pd.DataFrame({"lat":[35.702202], "lon":[139.414096]})
-# map.token("pk.eyJ1IjoiaGlyb3Rha2VrMDYiLCJhIjoiY2tpbzI2NGgwMTh5dTJyanpxczBtNGZsdyJ9.8WcugSD91Zq4M5KFqPzwvg")
-st.map(dm)
-
-# Interactive Wedgets
-# input box
-
-st.title("interactive wedgets")
-
-text = st.text_input("あなたの趣味を教えて下さい。")
-# text = st.sidebar.text_input("あなたの趣味を教えて下さい。") # sidbar表示の場合
-"あなたの趣味:",text
-condition = st.slider("あなたの調子は？", 0, 100, 50)
-# condition = st..sidebar.slider("あなたの調子は？", 0, 100, 50) # sidbar表示の場合
-"あなたの調子:", condition
-
-# expander
-expander1 = st.beta_expander("質問")
-expander1.write("回答")
+if tool_name == "駆け付け費用チェック":
+    st.write("駆け付け費用チェックが選択されました。実行する場合は実行ボタンを押して下さい。")
+    if st.checkbox("実行"):
+        kaketsuke()
+else:
+    st.write("他のツールを選択して下さい。")
 
