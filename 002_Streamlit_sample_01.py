@@ -277,6 +277,17 @@ def kaketsuke():
         else:
             st.subheader("チェック用ファイルが揃っていません")
 
+def web_check():
+    from selenium import webdriver
+    from webdriver_manager.chrome import ChromeDriverManager
+    import time
+
+    browser = webdriver.Chrome(ChromeDriverManager().install())
+    browser.get('https://www.google.com/?hl=ja')
+    time.sleep(5)
+    browser.quit()
+
+
 
 if tool_name == "駆け付け費用チェック":
     st.write("駆け付け費用チェックが選択されました。実行する場合は実行ボタンを押して下さい。")
