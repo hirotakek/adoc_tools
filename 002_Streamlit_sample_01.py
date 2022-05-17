@@ -293,6 +293,11 @@ if tool_name == "駆け付け費用チェック":
     st.write("駆け付け費用チェックが選択されました。実行する場合は実行ボタンを押して下さい。")
     if st.checkbox("実行"):
         kaketsuke()
+elif tool_name == "選択肢3":
+    if st.checkbox("実行"):
+        web_check()
+        
+
 else:
     st.write("他のツールを選択して下さい。")
 
