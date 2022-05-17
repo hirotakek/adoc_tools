@@ -2,5 +2,5 @@ streamlit
 pandas
 openpyxl
 selenium
-seleniumBase
+seleniumbase
 time
