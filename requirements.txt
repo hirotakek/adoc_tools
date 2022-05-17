@@ -2,5 +2,6 @@ streamlit
 pandas
 openpyxl
 selenium
+seleniumBase
 webdriver_manager
 time
