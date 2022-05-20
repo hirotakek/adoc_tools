@@ -280,7 +280,7 @@ def kaketsuke():
 def qr_code():
     import qrcode
     from PIL import Image
-    import cv2
+    # import cv2
     import streamlit as st
     import time
 
