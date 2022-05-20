@@ -4,4 +4,3 @@ openpyxl
 selenium
 webdriver_manager
 qrcode
-cv2
