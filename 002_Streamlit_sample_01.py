@@ -12,7 +12,7 @@ import streamlit as st
 
 st.title("ADOC TOOL site")
 
-tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', '選択肢1', '駆け付け費用チェック', 'QR Code作成', '選択肢3'))
+tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', '選択肢1', '駆け付け費用チェック', 'QR Code作成', 'PDFをキャラクタに変換', '選択肢3'))
 
     
 def kaketsuke():
@@ -296,6 +296,20 @@ def qr_code():
         st.image(image, caption='QR code')
         time.sleep(30)
 
+def pdf_char():
+    import PyPDF2
+    import streamlit as st
+    
+    uploaded_file_conv = st.file_uploader("変換するファイル", type="pdf")
+    
+    if st.checkbox("実行"):
+        file = open(uploaded_file_conv, "rb")
+        reader = PyPDF2.PdfFileReader(file)
+        pageNo = reader.numPages()
+        
+        for i in range(pageNo):
+            page = reader.getPage(i)
+            st.write(page.extractText())
 
 def web_check():
     from selenium import webdriver
@@ -317,6 +331,10 @@ if tool_name == "駆け付け費用チェック":
 elif tool_name == "QR Code作成":
     if st.checkbox("実行"):
         qr_code()
+
+elif tool_name == "PDFをキャラクタに変換":
+    if st.checkbox("実行"):
+        pdf_char()
 
 elif tool_name == "選択肢3":
     if st.checkbox("実行"):
