@@ -3,3 +3,6 @@ pandas
 openpyxl
 selenium
 webdriver_manager
+qrcode
+PIL
+cv2
