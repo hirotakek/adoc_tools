@@ -12,7 +12,7 @@ import streamlit as st
 
 st.title("ADOC TOOL site")
 
-tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('選択肢1', '駆け付け費用チェック', 'QR Code作成', '選択肢3'))
+tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', '選択肢1', '駆け付け費用チェック', 'QR Code作成', '選択肢3'))
 
     
 def kaketsuke():
@@ -322,7 +322,10 @@ elif tool_name == "選択肢3":
     if st.checkbox("実行"):
         web_check()
         
-
+elif tool_name == '終了':
+    if st.checkbox("終了？"):
+        st.stop()
+        
 else:
     st.write("他のツールを選択して下さい。")
 
