@@ -12,7 +12,7 @@ import streamlit as st
 
 st.title("ADOC TOOL site")
 
-tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('選択肢1', '駆け付け費用チェック', '選択肢3'))
+tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('選択肢1', '駆け付け費用チェック', 'QR Code作成', '選択肢3'))
 
     
 def kaketsuke():
@@ -277,6 +277,25 @@ def kaketsuke():
         else:
             st.subheader("チェック用ファイルが揃っていません")
 
+def qr_code():
+    import qrcode
+    from PIL import Image
+    import cv2
+    import streamlit as st
+    import time
+
+    input_text = st.text_input("変換したい内容を入力して下さい：　", "ここにQRコードに返還したい文字を入力")
+
+    img = qrcode.make(input_text)
+
+    img.save('/qrcode_test.jpg')
+
+    image = Image.open('/qrcode_test.jpg')
+
+    st.image(image, caption='QR code')
+    time.sleep(30)
+
+
 def web_check():
     from selenium import webdriver
     from webdriver_manager.chrome import ChromeDriverManager
@@ -293,6 +312,11 @@ if tool_name == "駆け付け費用チェック":
     st.write("駆け付け費用チェックが選択されました。実行する場合は実行ボタンを押して下さい。")
     if st.checkbox("実行"):
         kaketsuke()
+        
+elif tool_name == "QR Code作成":
+    if st.checkbox("実行"):
+        qr_code()
+
 elif tool_name == "選択肢3":
     if st.checkbox("実行"):
         web_check()
