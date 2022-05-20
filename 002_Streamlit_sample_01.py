@@ -288,12 +288,13 @@ def qr_code():
 
     img = qrcode.make(input_text)
 
-    img.save('qrcode_test.jpg')
-
-    image = Image.open('qrcode_test.jpg')
-
-    st.image(image, caption='QR code')
-    time.sleep(30)
+    if st.checkbox("変換"):
+        img.save('qrcode_test.jpg')
+    
+        image = Image.open('qrcode_test.jpg')
+    
+        st.image(image, caption='QR code')
+        time.sleep(30)
 
 
 def web_check():
