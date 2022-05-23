@@ -342,7 +342,7 @@ elif tool_name == "選択肢3":
         
 elif tool_name == '終了':
     if st.checkbox("終了？"):
-        st.title("ブラウザを「x」等で閉じて下さい。")
+        st.subheader("ブラウザを「x」等で閉じて下さい。")
         st.stop()
         exit()
         
