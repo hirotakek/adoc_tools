@@ -298,6 +298,7 @@ def qr_code():
 
 def pdf_char():
     import PyPDF2
+    from PyPDF2 import PdfFileReader
     import streamlit as st
     
     uploaded_file_conv = st.file_uploader("変換するファイル", type="pdf")
