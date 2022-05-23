@@ -301,10 +301,10 @@ def pdf_char():
     from PyPDF2 import PdfFileReader
     import streamlit as st
     
-    uploaded_file_conv = st.file_uploader("変換するファイル", type="pdf")
+    uploaded_file_conv1 = st.file_uploader("変換するファイル", type="pdf")
     
     if st.checkbox("変換実施"):
-        with open(uploaded_file_conv, "rb") as file:
+        with open(uploaded_file_conv1, "rb") as file:
             reader = PyPDF2.PdfFileReader(file)
             pageNo = reader.numPages()
         
