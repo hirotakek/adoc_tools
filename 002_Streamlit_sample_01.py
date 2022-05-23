@@ -303,7 +303,7 @@ def pdf_char():
     uploaded_file_conv = st.file_uploader("変換するファイル", type="pdf")
     
     if st.checkbox("変換実施"):
-        file = open(uploaded_file_conv, "rb")
+        file = open(uploaded_file_conv, "r")
         reader = PyPDF2.PdfFileReader(file)
         pageNo = reader.numPages()
         
