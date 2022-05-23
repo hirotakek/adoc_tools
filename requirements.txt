@@ -3,5 +3,6 @@ pandas
 openpyxl
 selenium
 webdriver_manager
+pdfminer.six
 qrcode
 PyPDF2
