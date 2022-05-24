@@ -1,4 +1,5 @@
 streamlit
+win32com
 pandas
 openpyxl
 selenium
