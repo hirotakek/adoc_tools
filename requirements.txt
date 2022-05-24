@@ -1,5 +1,4 @@
 streamlit
-win32com.client
 pandas
 openpyxl
 selenium
