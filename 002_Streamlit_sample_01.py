@@ -317,6 +317,7 @@ def pdf_char():
         # file_conv = open(uploaded_file_conv1,"rb")
         # pdfparser = PDFParser()
         reader = PyPDF2.PdfFileReader(uploaded_file_conv1)
+        st.write(reader)
         pageNo = reader.numPages()
         
         for i in range(pageNo):
