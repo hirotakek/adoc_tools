@@ -308,6 +308,7 @@ def pdf_char():
     from pdfminer.pdfdocument import PDFDocument, PDFNoOutlines
     # 構文解析を実行するクラス
     from pdfminer.pdfparser import PDFParser
+    import PyPDF2
     
     uploaded_file_conv1 = st.file_uploader("変換するファイル", type="pdf")
     st.write(uploaded_file_conv1)
