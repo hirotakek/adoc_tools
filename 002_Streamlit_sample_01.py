@@ -12,7 +12,7 @@ import streamlit as st
 
 st.title("ADOC TOOL site")
 
-tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', '選択肢1', '駆け付け費用チェック', 'QR Code作成', 'PDFをキャラクタに変換', '選択肢3'))
+tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', '選択肢1', '駆け付け費用チェック', 'QR Code作成', 'PDFをキャラクタに変換(日本語不可)', '選択肢3'))
 
     
 def kaketsuke():
