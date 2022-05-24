@@ -297,16 +297,26 @@ def qr_code():
         time.sleep(30)
 
 def pdf_char():
-    import PyPDF2
-    from PyPDF2 import PdfFileReader
-    import streamlit as st
+    # import PyPDF2
+    # from PyPDF2 import PdfFileReader
+    # import streamlit as st
+    
+    # from pdfminer.pdfinterp import PDFResourceManager
+    # rmgr = PDFResourceManager()
+    
+    # PDF本体情報を扱うための機能や属性を提供するクラス
+    from pdfminer.pdfdocument import PDFDocument, PDFNoOutlines
+    # 構文解析を実行するクラス
+    from pdfminer.pdfparser import PDFParser
     
     uploaded_file_conv1 = st.file_uploader("変換するファイル", type="pdf")
+    st.write(uploaded_file_conv1)
     
     if st.checkbox("変換実施"):
-        with open("uploaded_file_conv1","rb") as file:
-            reader = PyPDF2.PdfFileReader(file)
-            pageNo = reader.numPages()
+        file_conv = open(uploaded_file_conv1,"rb")
+        pdfparser = PDFParser()
+        reader = PyPDF2.PdfFileReader(file_conv)
+        pageNo = reader.numPages()
         
         for i in range(pageNo):
             page = reader.getPage(i)
@@ -318,7 +328,11 @@ def web_check():
     import time
 
     browser = webdriver.Chrome(ChromeDriverManager().install())
-    browser.get('https://www.google.com/?hl=ja')
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('window-size=1920x1080')
+    options.add_argument("disable-gpu")
+    browser.get('https://www.google.com/?hl=ja', options=options)
     time.sleep(5)
     browser.quit()
 
