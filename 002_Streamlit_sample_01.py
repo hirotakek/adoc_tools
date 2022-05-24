@@ -350,7 +350,7 @@ elif tool_name == "QR Code作成":
     if st.checkbox("実行"):
         qr_code()
 
-elif tool_name == "PDFをキャラクタに変換":
+elif tool_name == "PDFをキャラクタに変換(日本語不可)":
     if st.checkbox("実行"):
         pdf_char()
 
