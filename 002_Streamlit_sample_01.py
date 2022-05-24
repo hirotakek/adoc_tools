@@ -314,9 +314,9 @@ def pdf_char():
     st.write(uploaded_file_conv1)
     
     if st.checkbox("変換実施"):
-        file_conv1 = open(uploaded_file_conv1,"rb")
+        # file_conv1 = open(uploaded_file_conv1,"rb")
         # pdfparser = PDFParser()
-        reader = PyPDF2.PdfFileReader(file_conv1)
+        reader = PyPDF2.PdfFileReader(uploaded_file_conv1)
         st.write(reader)
         pageNo = reader.numPages
         
