@@ -4,5 +4,6 @@ openpyxl
 selenium
 webdriver_manager
 pdfminer.six
+chardet
 qrcode
 PyPDF2
