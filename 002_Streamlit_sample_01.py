@@ -19,6 +19,8 @@ elif tool_name_1 == "プロジェクト個別":
     tool_name_2 = st.selectbox("ターゲットプロジェクト", ("終了", "SB駆け付け", "その他"))
     if tool_name_2 ==  "SB駆け付け":
         tool_name = st.selectbox("どのツールを使いますか？", ('駆け付け費用チェック', "終了"))
+    else:
+        tool_name = "終了"
 else:
     tool_name = "終了"
 
