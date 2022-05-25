@@ -12,7 +12,7 @@ import streamlit as st
 
 st.title("ADOC TOOL site")
 
-tool_name_1 = st.selectbox('ツールのカテゴリを指定して下さい。',('終了', '標準ツール', '選択肢1', '選択肢3'))
+tool_name_1 = st.selectbox('ツールのカテゴリを指定して下さい。',('終了', '標準ツール', "プロジェクト個別", '選択肢1', '選択肢3'))
 if tool_name_1 == '標準ツール':
     tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', 'PDFをキャラクタに変換(日本語不可)'))
 elif tool_name_1 == "プロジェクト個別":
