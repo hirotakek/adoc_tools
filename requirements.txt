@@ -8,5 +8,4 @@ chardet
 qrcode
 PyPDF2
 lxml
-base64
 github
