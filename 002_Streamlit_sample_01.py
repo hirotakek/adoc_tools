@@ -352,7 +352,7 @@ def web_table_get():
     import streamlit as st
     import pandas as pd
 
-    st.subheader("Web頁のテーブルを抽出")
+    st.subheader("Web頁内のテーブルを抽出")
     url = st.text_input("URL")
     table_no = st.text_input("何番目のテーブル？")
 
@@ -364,7 +364,7 @@ def web_table_get():
                 kekka = pd.read_html(url)[table_no_int]
                 st.write(kekka)
             except:
-                st.write("該当のURLには、指定のテーブルが見つかりませんでした。")
+                st.write('<span style="color:red;background:pink">該当のURLには、指定のテーブルが見つかりませんでした。</span>')
 
 
 if tool_name == "駆け付け費用チェック":
