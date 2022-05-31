@@ -360,9 +360,11 @@ def web_table_get():
         if st.checkbox("Table = " + table_no):
             table_no_int = int(table_no)
             # url = 'https://db.netkeiba.com/race/202005030211/'
-            kekka = pd.read_html(url)[table_no_int]
-            st.write(kekka)
-
+            try:
+                kekka = pd.read_html(url)[table_no_int]
+                st.write(kekka)
+            except:
+                st.write("該当のURLには、指定のテーブルが見つかりませんでした。")
 
 
 if tool_name == "駆け付け費用チェック":
