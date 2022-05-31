@@ -14,7 +14,7 @@ st.title("ADOC TOOL site")
 
 tool_name_1 = st.selectbox('ツールのカテゴリを指定して下さい。',('終了', '標準ツール', "プロジェクト個別", '選択肢1', '選択肢3'))
 if tool_name_1 == '標準ツール':
-    tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', 'PDFをキャラクタに変換(日本語不可)'))
+    tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', 'PDFをキャラクタに変換(日本語不可)', "webからテーブル抽出"))
 elif tool_name_1 == "プロジェクト個別":
     tool_name_2 = st.selectbox("ターゲットプロジェクト", ("終了", "SB駆け付け", "その他"))
     if tool_name_2 ==  "SB駆け付け":
@@ -348,6 +348,21 @@ def web_check():
     time.sleep(5)
     browser.quit()
 
+def web_table_get():
+    import streamlit as st
+    import pandas as pd
+
+    st.subheader("Web頁のテーブルを抽出")
+    url = st.text_input("URL")
+    table_no = st.text_input("何番目のテーブル？")
+
+    if url != None:
+        if st.checkbox("Table = " + table_no):
+            table_no_int = int(table_no)
+            # url = 'https://db.netkeiba.com/race/202005030211/'
+            kekka = pd.read_html(url)[table_no_int]
+            st.write(kekka)
+
 
 
 if tool_name == "駆け付け費用チェック":
@@ -362,6 +377,10 @@ elif tool_name == "QR Code作成":
 elif tool_name == "PDFをキャラクタに変換(日本語不可)":
     if st.checkbox("実行"):
         pdf_char()
+        
+elif tool_name == "webからテーブル抽出":
+    if st.checkbox("実行"):
+        web_table_get()
 
 elif tool_name == "選択肢3":
     if st.checkbox("実行"):
