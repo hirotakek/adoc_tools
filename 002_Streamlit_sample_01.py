@@ -364,7 +364,7 @@ def web_table_get():
                 kekka = pd.read_html(url)[table_no_int]
                 st.write(kekka)
             except:
-                st.write('<span style="color:red;background:pink">該当のURLには、指定のテーブルが見つかりませんでした。</span>')
+                st.write('<span style="color:red;background:pink">該当のURLには、指定のテーブルが見つかりませんでした。</span>', unsafe_allow_html=True)
 
 
 if tool_name == "駆け付け費用チェック":
