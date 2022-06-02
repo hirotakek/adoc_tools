@@ -298,7 +298,7 @@ def qr_code():
     import streamlit as st
     import time
 
-    input_text = st.text_input("QR変換したい文字列を入力して下さい：　", "ここにQRコードに変換したい文字を入力")
+    input_text = st.text_input("QR変換したい文字列を入力して下さい：　", placeholder="ここにQRコードに変換したい文字を入力")
 
     img = qrcode.make(input_text)
 
