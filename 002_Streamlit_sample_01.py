@@ -147,7 +147,7 @@ def kaketsuke():
         #                        st.write(df_customer1.loc[sb_count1,'宿泊費金額'],"  ,  ",accomodation_fee)
                                 if df_customer1.loc[sb_count1,'かけつけ費合計'] == claim_total:
         #                            st.write(df_customer1.loc[sb_count1,'かけつけ費合計'],"  ,  ",claim_total)
-                                    st.write(mid1, " = OK")
+                                    # st.write(mid1, " = OK")
                                     mid1_result = 0
                                     continue
                                 else:
@@ -186,7 +186,7 @@ def kaketsuke():
                             if df_customer2.loc[sb_count2,'かけつけ費金額\n(往復)'] == usage:
                                 if df_customer2.loc[sb_count2,'宿泊費金額'] == accomodation_fee:
                                     if df_customer2.loc[sb_count2,'かけつけ費合計'] == claim_total:
-                                        st.write(mid1, " = OK")
+                                        # st.write(mid1, " = OK")
                                         mid1_result = 0
                                         continue
                                     else:
@@ -226,7 +226,7 @@ def kaketsuke():
                                 if df_customer3.loc[sb_count3,'かけつけ費金額\n(往復)'] == usage:
                                     if df_customer3.loc[sb_count3,'宿泊費金額'] == accomodation_fee:
                                         if df_customer3.loc[sb_count3,'かけつけ費合計'] == claim_total:
-                                            st.write(mid1, " = OK")
+                                            # st.write(mid1, " = OK")
                                             mid1_result = 0
                                             continue
                                         else:
