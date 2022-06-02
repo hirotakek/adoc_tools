@@ -16,7 +16,7 @@ tool_name_1 = st.selectbox('ツールのカテゴリを指定して下さい。'
 if tool_name_1 == '標準ツール':
     tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', 'PDFをキャラクタに変換(日本語不可)', "webからテーブル抽出", "音楽再生"))
 elif tool_name_1 == "プロジェクト個別":
-    pass_code1 = st.text_input("パスコード")
+    pass_code1 = st.text_input("パスコード", type="password")
     if pass_code1 == "qic":
         tool_name_2 = st.selectbox("ターゲットプロジェクト", ("終了", "SB駆け付け", "その他"))
         if tool_name_2 ==  "SB駆け付け":
