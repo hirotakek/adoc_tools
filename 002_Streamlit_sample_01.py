@@ -16,11 +16,13 @@ tool_name_1 = st.selectbox('ツールのカテゴリを指定して下さい。'
 if tool_name_1 == '標準ツール':
     tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', 'PDFをキャラクタに変換(日本語不可)', "webからテーブル抽出", "音楽再生"))
 elif tool_name_1 == "プロジェクト個別":
-    tool_name_2 = st.selectbox("ターゲットプロジェクト", ("終了", "SB駆け付け", "その他"))
-    if tool_name_2 ==  "SB駆け付け":
-        tool_name = st.selectbox("どのツールを使いますか？", ('駆け付け費用チェック', "終了"))
-    else:
-        tool_name = "終了"
+    pass_code1 = st.text_input("パスコード")
+    if pass_code1 == "qic":
+        tool_name_2 = st.selectbox("ターゲットプロジェクト", ("終了", "SB駆け付け", "その他"))
+        if tool_name_2 ==  "SB駆け付け":
+            tool_name = st.selectbox("どのツールを使いますか？", ('駆け付け費用チェック', "終了"))
+        else:
+            tool_name = "終了"
 else:
     tool_name = "終了"
 
@@ -368,7 +370,7 @@ def web_table_get():
 
 
 if tool_name == "駆け付け費用チェック":
-    st.write("駆け付け費用チェックが選択されました。実行する場合は実行ボタンを押して下さい。")
+    st.write("駆け付け費用チェックが選択されました。実行する場合はパスコードを入力して下さい。")
     if st.checkbox("実行"):
         kaketsuke()
         
