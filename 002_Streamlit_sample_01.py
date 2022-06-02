@@ -396,7 +396,7 @@ elif tool_name == '終了':
         
 elif tool_name == "音楽再生":
     if st.checkbox("音楽再生"):
-        play_music = st.file_uploader("再生したいファイル(mp3)", type=("wav", "mp3"))
+        play_music = st.file_uploader("再生したいファイル(mp3 または wav)", type=("wav", "mp3"))
         st.write(play_music)
 
         if play_music != None:
