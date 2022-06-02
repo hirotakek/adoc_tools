@@ -23,6 +23,8 @@ elif tool_name_1 == "プロジェクト個別":
             tool_name = st.selectbox("どのツールを使いますか？", ('駆け付け費用チェック', "終了"))
         else:
             tool_name = "終了"
+    else:
+        st.write("パスコードを入力して下さい。")
 else:
     tool_name = "終了"
 
