@@ -25,6 +25,7 @@ elif tool_name_1 == "プロジェクト個別":
             tool_name = "終了"
     else:
         st.write("パスコードを入力して下さい。")
+        tool_name = "終了"
 else:
     tool_name = "終了"
 
