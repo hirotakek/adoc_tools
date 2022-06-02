@@ -373,7 +373,7 @@ def web_table_get():
 
 
 if tool_name == "駆け付け費用チェック":
-    st.write("駆け付け費用チェックが選択されました。実行する場合はパスコードを入力して下さい。")
+    st.write("駆け付け費用チェックが選択されました。")
     if st.checkbox("実行"):
         kaketsuke()
         
