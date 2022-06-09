@@ -456,7 +456,7 @@ elif tool_name == "音楽再生":
             st.audio(play_music)
 
 elif tool_name == "テキストを音声に変換":
-    if st.checkbox("音楽再生"):
+    if st.checkbox("音声再生"):
         text2speech()    
 
         
