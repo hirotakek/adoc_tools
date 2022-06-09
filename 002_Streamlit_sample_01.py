@@ -14,7 +14,7 @@ st.title("ADOC TOOL site")
 
 tool_name_1 = st.selectbox('ツールのカテゴリを指定して下さい。',('終了', '標準ツール', "プロジェクト個別", '選択肢1', '選択肢3'))
 if tool_name_1 == '標準ツール':
-    tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', "バーコード作成", 'PDFをキャラクタに変換(日本語不可)', "webからテーブル抽出", "音楽再生"))
+    tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', "バーコード作成", 'PDFをキャラクタに変換(日本語不可)', "テキストを音声に変換", "webからテーブル抽出", "音楽再生"))
 elif tool_name_1 == "プロジェクト個別":
     pass_code1 = st.text_input("パスコード", type="password")
     if pass_code1 == "qic":
@@ -371,6 +371,32 @@ def web_table_get():
             except:
                 st.write('<span style="color:red">該当のURLには、指定のテーブルが見つかりませんでした。</span>', unsafe_allow_html=True)
 
+
+def text2speech():
+    from gtts import gTTS
+    import win32com.client as wincl
+    import streamlit as st
+
+    st.title("Text2Speech")
+    selected = st.radio("Audio Type",
+                        ["Microsoft", "Google"])
+    text = st.text_input(label = "Message", value = "Hello")
+    
+    if st.button("Speak"):
+        audio = "speech.mp3"
+        if selected == "Google":
+            tts = gTTS(text = text, lang = "ja")
+            tts.save(audio)
+        elif selected == "Microsoft":
+            sapi = wincl.Dispatch("SAPI.SpVoice")
+            fs = wincl.Dispatch("SAPI.SpFileStream")
+            fs.Open(audio, 3)
+            sapi.AudioOutputStream = fs
+            sapi.Speak(text)
+            fs.Close()
+        st.audio(audio)
+
+
 def b_code():
     import streamlit as st
     from pybarcodes import JAN
@@ -428,6 +454,10 @@ elif tool_name == "音楽再生":
 
         if play_music != None:
             st.audio(play_music)
+
+elif tool_name == "テキストを音声に変換":
+    if st.checkbox("音楽再生"):
+        text2speech()    
 
         
 else:
