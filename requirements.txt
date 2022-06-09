@@ -12,3 +12,4 @@ playsound
 pybarcodes
 python-barcode
 gtts
+win32com.client
