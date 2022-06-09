@@ -382,7 +382,7 @@ def b_code():
     if b_code != 0:
         barcode = JAN(b_code)
         # barcode.show()
-        barcode.save("barcode_save.jpg")
+        img = barcode.save("barcode_save.jpg")
         image = Image.open('barcode_save.jpg')
         st.image(image, caption='JAN code')
         time.sleep(30)
