@@ -14,7 +14,7 @@ st.title("ADOC TOOL site")
 
 tool_name_1 = st.selectbox('ツールのカテゴリを指定して下さい。',('終了', '標準ツール', "プロジェクト個別", '選択肢1', '選択肢3'))
 if tool_name_1 == '標準ツール':
-    tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', 'PDFをキャラクタに変換(日本語不可)', "webからテーブル抽出", "音楽再生"))
+    tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', "バーコード作成", 'PDFをキャラクタに変換(日本語不可)', "webからテーブル抽出", "音楽再生"))
 elif tool_name_1 == "プロジェクト個別":
     pass_code1 = st.text_input("パスコード", type="password")
     if pass_code1 == "qic":
@@ -371,6 +371,16 @@ def web_table_get():
             except:
                 st.write('<span style="color:red">該当のURLには、指定のテーブルが見つかりませんでした。</span>', unsafe_allow_html=True)
 
+def b_code():
+    import streamlit as st
+    from pybarcodes import JAN
+
+    st.title("JAN/EAN/UPC バーコード作成")
+    b_code = st.number_input(label="JANコード：45または49から始まる数字12桁", min_value=0, max_value=1000000000000, step=1)
+    if b_code != 0:
+        barcode = JAN(b_code)
+        barcode.show()
+
 
 if tool_name == "駆け付け費用チェック":
     st.write("駆け付け費用チェックが選択されました。")
@@ -380,6 +390,10 @@ if tool_name == "駆け付け費用チェック":
 elif tool_name == "QR Code作成":
     if st.checkbox("実行"):
         qr_code()
+
+elif tool_name == "バーコード作成":
+    if st.checkbox("実行"):
+        b_code()
 
 elif tool_name == "PDFをキャラクタに変換(日本語不可)":
     if st.checkbox("実行"):
