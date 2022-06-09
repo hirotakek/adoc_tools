@@ -374,7 +374,7 @@ def web_table_get():
 
 def text2speech():
     from gtts import gTTS
-    import win32com.client as wincl
+    # import win32com.client as wincl
     import streamlit as st
 
     st.title("Text2Speech")
@@ -387,13 +387,15 @@ def text2speech():
         if selected == "Google":
             tts = gTTS(text = text, lang = "ja")
             tts.save(audio)
-        elif selected == "Microsoft":
-            sapi = wincl.Dispatch("SAPI.SpVoice")
-            fs = wincl.Dispatch("SAPI.SpFileStream")
-            fs.Open(audio, 3)
-            sapi.AudioOutputStream = fs
-            sapi.Speak(text)
-            fs.Close()
+        # elif selected == "Microsoft":
+        #    sapi = wincl.Dispatch("SAPI.SpVoice")
+        #    fs = wincl.Dispatch("SAPI.SpFileStream")
+        #    fs.Open(audio, 3)
+        #    sapi.AudioOutputStream = fs
+        #    sapi.Speak(text)
+        #    fs.Close()
+    else:
+        st.write("Error: Microsoft is not supported for Linux")
         st.audio(audio)
 
 
