@@ -11,3 +11,4 @@ lxml
 playsound
 pybarcodes
 python-barcode
+gtts
