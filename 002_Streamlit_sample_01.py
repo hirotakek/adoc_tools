@@ -375,8 +375,9 @@ def b_code():
     import streamlit as st
     from pybarcodes import JAN
     from PIL import Image
-    import barcode
+    # import barcode
     import time
+    # from barcode.writer import ImageWriter
 
     st.title("JAN/EAN/UPC バーコード作成")
     b_code = st.number_input(label="JANコード：45または49から始まる数字12桁", min_value=450000000000, max_value=499999999999, step=1)
