@@ -381,8 +381,8 @@ def b_code():
     b_code = st.number_input(label="JANコード：45または49から始まる数字12桁", min_value=0, max_value=1000000000000, step=1)
     if b_code != 0:
         barcode = JAN(b_code)
-        barcode.save("barcode_save.jpg")
-        image = Image.open('barcode_save.jpg')
+        barcode.save('barcode_save.png')
+        image = Image.open('barcode_save.png')
         st.image(image, caption='JAN code')
         time.sleep(30)
 
