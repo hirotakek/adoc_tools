@@ -379,7 +379,7 @@ def text2speech():
 
     st.title("Text2Speech")
     selected = st.radio("Audio Type",
-                        ["Microsoft", "Google"])
+                        ["Google"])
     text = st.text_input(label = "Message", value = "Hello")
     
     if st.button("Speak"):
@@ -387,16 +387,9 @@ def text2speech():
         if selected == "Google":
             tts = gTTS(text = text, lang = "ja")
             tts.save(audio)
-        # elif selected == "Microsoft":
-        #    sapi = wincl.Dispatch("SAPI.SpVoice")
-        #    fs = wincl.Dispatch("SAPI.SpFileStream")
-        #    fs.Open(audio, 3)
-        #    sapi.AudioOutputStream = fs
-        #    sapi.Speak(text)
-        #    fs.Close()
             st.audio(audio)
-    else:
-        st.write("Error: Microsoft is not supported for Linux")
+        else:
+            st.write("Error: Microsoft is not supported for Linux")
 
 
 def b_code():
