@@ -375,15 +375,15 @@ def b_code():
     import streamlit as st
     from pybarcodes import JAN
     from PIL import Image
-    import time
+    import barcode
 
     st.title("JAN/EAN/UPC バーコード作成")
     b_code = st.number_input(label="JANコード：45または49から始まる数字12桁", min_value=450000000000, max_value=499999999999, step=1)
 
     if b_code != 450000000000:
     
-        barcode = JAN(b_code)
-        img = barcode.save('barcode_save.jpg')
+        barcode_jan = JAN(b_code)
+        barcode_jan.save('barcode_save.jpg')
         image = Image.open('barcode_save.jpg')
         st.image(image, caption="JAN code")
 

@@ -10,3 +10,4 @@ PyPDF2
 lxml
 playsound
 pybarcodes
+python-barcode
