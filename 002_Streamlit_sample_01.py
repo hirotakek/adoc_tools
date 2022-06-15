@@ -401,7 +401,6 @@ def text2speech_jp():
     import math
     import speech_recognition as sr
     import pandas as pd
-    import tkinter.filedialog
 
     #filenameに読み込むファイル、timeにカットする間隔
     def cut_wav(filename,time):  
