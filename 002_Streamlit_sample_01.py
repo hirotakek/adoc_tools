@@ -14,7 +14,7 @@ st.title("ADOC TOOL site")
 
 tool_name_1 = st.selectbox('ツールのカテゴリを指定して下さい。',('終了', '標準ツール', "プロジェクト個別", '選択肢1', '選択肢3'))
 if tool_name_1 == '標準ツール':
-    tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', "バーコード作成", 'PDFをキャラクタに変換(日本語不可)', "テキストを音声に変換", "webからテーブル抽出", "音楽再生"))
+    tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', "バーコード作成", 'PDFをキャラクタに変換(日本語不可)', "テキストを音声に変換", "日本語テキストを音声に変換", "webからテーブル抽出", "音楽再生"))
 elif tool_name_1 == "プロジェクト個別":
     pass_code1 = st.text_input("パスコード", type="password")
     if pass_code1 == "qic":
@@ -391,6 +391,111 @@ def text2speech():
         else:
             st.write("Error: Microsoft is not supported for Linux")
 
+def text2speech_jp():
+    import streamlit as st
+    import wave
+    import struct
+    from scipy import fromstring,int16
+    import numpy as np
+    import os
+    import math
+    import speech_recognition as sr
+    import pandas as pd
+    import tkinter.filedialog
+
+    #filenameに読み込むファイル、timeにカットする間隔
+    def cut_wav(filename,time):  
+        # timeの単位は[sec]
+
+        # ファイルを読み出し
+        wavf = filename
+        wr = wave.open(wavf, 'r')
+
+        # waveファイルが持つ性質を取得
+        ch = wr.getnchannels()
+        width = wr.getsampwidth()
+        fr = wr.getframerate()
+        fn = wr.getnframes()
+        total_time = 1.0 * fn / fr 
+        integer = math.floor(total_time*100) # 小数点以下切り捨て
+        t = int(time*100)  # 秒数[sec]
+        frames = int(ch * fr * t /100)
+        num_cut = int(integer//t)
+        # waveの実データを取得し、数値化
+        data = wr.readframes(wr.getnframes())
+        wr.close()
+        X = np.frombuffer(data, dtype=int16)
+
+        for i in range(num_cut + 1):
+            # 出力データを生成
+            outf = out_dir + '/' + str(i) + '.wav' 
+            # 音声をカットした部分は少し巻き戻す
+            if i > 0:
+                start_cut = int(i*frames) - int(180000)
+            else:
+                start_cut = int(i*frames)
+
+            end_cut = int(i*frames + frames)
+            # print(start_cut)
+            # print(end_cut)
+            Y = X[start_cut:end_cut]
+            outd = struct.pack("h" * len(Y), *Y)
+
+            # 書き出し
+            ww = wave.open(outf, 'w')
+            ww.setnchannels(ch)
+            ww.setsampwidth(width)
+            ww.setframerate(fr)
+            ww.writeframes(outd)
+            ww.close()
+
+        str_out = ""
+        list1 = [wavf,"",""]
+        df_x = pd.DataFrame([list1])
+        df_x.columns = ['No', '音声ファイル', '変換結果']
+
+        for ii in range(num_cut + 1):
+            outf = out_dir + '/' + str(ii) + '.wav' 
+            str_out = wav_to_text(outf)
+            df_x.loc[ii] = [ii,str(ii) + '.wav',str_out]
+
+        # excelへ書き出し
+        with pd.ExcelWriter(out_file) as writer:
+            df_x.to_excel(writer, sheet_name='結果', index=False)
+
+    def wav_to_text(wavfile):
+        r = sr.Recognizer()
+
+        with sr.AudioFile(wavfile) as source:
+            audio = r.record(source)
+
+        wav_to_text = r.recognize_google(audio, language='ja-JP')
+
+        print(wav_to_text)
+        st.write(wav_to_text)
+
+        return wav_to_text
+
+    # 一応既に同じ名前のディレクトリがないか確認。
+    out_dir = "output"
+    file = os.path.exists(out_dir)
+    # print(file)
+
+    if file == False:
+        #保存先のディレクトリの作成
+        os.mkdir(out_dir)
+
+    fTyp = [("","*.wav")]
+    # iDir = os.path.abspath(os.path.dirname(__file__))
+    # f_name = tkinter.filedialog.askopenfilename(filetypes = fTyp,initialdir = iDir)
+    f_name = st.file_uploader("音声入力(WAVフォーマット)", type="wav")
+    if f_name != None:
+        st.subheader("【文字起こし開始】")
+        cut_time = 60
+        out_file = "output/out.xlsx"
+        cut_wav(f_name,float(cut_time))
+        st.subheader("処理が終わりました。")
+
 
 def b_code():
     import streamlit as st
@@ -452,9 +557,12 @@ elif tool_name == "音楽再生":
 
 elif tool_name == "テキストを音声に変換":
     if st.checkbox("音声再生"):
-        text2speech()    
+        text2speech()
 
-        
+elif tool_name == "日本語テキストを音声に変換":
+    if st.checkbox("文字起こし開始"):
+        text2speech_jp()
+
 else:
     st.write("他のツールを選択して下さい。")
 
