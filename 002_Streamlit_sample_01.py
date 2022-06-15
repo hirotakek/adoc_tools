@@ -464,7 +464,6 @@ def text2speech_jp():
         with pd.ExcelWriter(out_file) as writer:
             df_x.to_excel(writer, sheet_name='結果', index=False)
         
-        st.write(out_file)
         st.download_button('xlsxファイルでダウンロードする場合はこちらから', data=out_file, file_name="out.xlsx")
 
     def wav_to_text(wavfile):
