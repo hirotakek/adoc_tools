@@ -14,4 +14,4 @@ python-barcode
 gtts
 numpy
 scipy
-speech_recognition
+SpeechRecognition
