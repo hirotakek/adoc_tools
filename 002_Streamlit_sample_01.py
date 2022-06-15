@@ -401,6 +401,7 @@ def text2speech_jp():
     import math
     import speech_recognition as sr
     import pandas as pd
+    from io import BytesIO
 
     #filenameに読み込むファイル、timeにカットする間隔
     def cut_wav(filename,time):  
@@ -459,8 +460,12 @@ def text2speech_jp():
             df_x.loc[ii] = [ii,str(ii) + '.wav',str_out]
 
         # excelへ書き出し
+        out_file = BytesIO()
         with pd.ExcelWriter(out_file) as writer:
             df_x.to_excel(writer, sheet_name='結果', index=False)
+        
+        st.write(out_file)
+        st.download_button('xlsxファイルでダウンロードする場合はこちらから', data=out_file, file_name="out.xlsx")
 
     def wav_to_text(wavfile):
         r = sr.Recognizer()
