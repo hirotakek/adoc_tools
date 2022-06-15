@@ -14,7 +14,7 @@ st.title("ADOC TOOL site")
 
 tool_name_1 = st.selectbox('ツールのカテゴリを指定して下さい。',('終了', '標準ツール', "プロジェクト個別", '選択肢1', '選択肢3'))
 if tool_name_1 == '標準ツール':
-    tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', "バーコード作成", 'PDFをキャラクタに変換(日本語不可)', "音声をテキストに変換", "音声を日本語テキストに変換", "webからテーブル抽出", "音楽再生"))
+    tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', "バーコード作成", 'PDFをキャラクタに変換(日本語不可)', "テキストを音声に変換", "音声を日本語テキストに変換", "webからテーブル抽出", "音楽再生"))
 elif tool_name_1 == "プロジェクト個別":
     pass_code1 = st.text_input("パスコード", type="password")
     if pass_code1 == "qic":
@@ -558,7 +558,7 @@ elif tool_name == "音楽再生":
         if play_music != None:
             st.audio(play_music)
 
-elif tool_name == "音声をテキストに変換":
+elif tool_name == "テキストを音声に変換":
     if st.checkbox("音声再生"):
         text2speech()
 
