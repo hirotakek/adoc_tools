@@ -472,7 +472,10 @@ def text2speech_jp():
         with sr.AudioFile(wavfile) as source:
             audio = r.record(source)
 
-        wav_to_text = r.recognize_google(audio, language='ja-JP')
+        if selected == "日本語":
+            wav_to_text = r.recognize_google(audio, language='ja-JP')
+        elif selected == "英語":
+            wav_to_text = r.recognize_google(audio)
 
         print(wav_to_text)
         st.write(wav_to_text)
@@ -491,6 +494,10 @@ def text2speech_jp():
     fTyp = [("","*.wav")]
     # iDir = os.path.abspath(os.path.dirname(__file__))
     # f_name = tkinter.filedialog.askopenfilename(filetypes = fTyp,initialdir = iDir)
+
+    selected = st.radio("言語",
+                        ["日本語", "英語"])
+
     f_name = st.file_uploader("音声入力(WAVフォーマット)", type="wav")
     if f_name != None:
         st.subheader("【文字起こし開始】")
