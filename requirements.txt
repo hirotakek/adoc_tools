@@ -3,6 +3,7 @@ pandas
 openpyxl
 selenium
 webdriver_manager
+webdriver-manager
 pdfminer.six
 chardet
 qrcode
