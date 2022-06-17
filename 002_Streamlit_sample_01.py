@@ -345,7 +345,7 @@ def web_check():
     from selenium.webdriver.chrome.options import Options
     import time
 
-    browser = webdriver.Chrome(ChromeDriverManager("102.0").install())
+    browser = webdriver.Chrome(ChromeDriverManager("102.0.5005.61").install())
     options = webdriver.chrome.options.Options()
     options.add_argument('--headless')
     browser.get('https://www.yahoo.co.jp/')
