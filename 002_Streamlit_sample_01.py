@@ -14,7 +14,7 @@ st.title("ADOC TOOL site")
 
 tool_name_1 = st.selectbox('ツールのカテゴリを指定して下さい。',('終了', '標準ツール', "プロジェクト個別", '選択肢1', '選択肢3'))
 if tool_name_1 == '標準ツール':
-    tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', "バーコード作成", 'PDFをキャラクタに変換(日本語不可)', "テキストを音声に変換", "音声を日本語テキストに変換", "webからテーブル抽出", "音楽再生"))
+    tool_name = st.selectbox('どのツールを使いますか？選択して下さい。',('終了', 'QR Code作成', "バーコード作成", 'PDFをキャラクタに変換(日本語不可)', "テキストを音声に変換", "音声を日本語テキストに変換", "webからテーブル抽出", "音楽再生", '選択肢3'))
 elif tool_name_1 == "プロジェクト個別":
     pass_code1 = st.text_input("パスコード", type="password")
     if pass_code1 == "qic":
@@ -349,7 +349,8 @@ def web_check():
     options.add_argument('--headless')
     options.add_argument('window-size=1920x1080')
     options.add_argument("disable-gpu")
-    browser.get('https://www.google.com/?hl=ja', options=options)
+    # browser.get('https://www.google.com/?hl=ja' ,options=options)
+    browser.get('https://www.google.com/?hl=ja')
     time.sleep(5)
     browser.quit()
 
