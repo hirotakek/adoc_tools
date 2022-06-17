@@ -342,17 +342,16 @@ def pdf_char():
 def web_check():
     from selenium import webdriver
     from webdriver_manager.chrome import ChromeDriverManager
+    from selenium.webdriver.chrome.options import Options
     import time
 
     browser = webdriver.Chrome(ChromeDriverManager().install())
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
-    options.add_argument('window-size=1920x1080')
-    options.add_argument("disable-gpu")
-    # browser.get('https://www.google.com/?hl=ja' ,options=options)
-    browser.get('https://www.google.com/?hl=ja')
+    browser.get('https://www.yahoo.co.jp/')
     time.sleep(5)
     browser.quit()
+    st.write("終わりました。")
 
 def web_table_get():
     import streamlit as st
