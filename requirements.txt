@@ -16,3 +16,7 @@ gtts
 numpy
 scipy
 SpeechRecognition
+pathlib
+chromedriver_py
+xlrd
+xlutils
