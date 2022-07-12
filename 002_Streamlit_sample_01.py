@@ -374,30 +374,6 @@ def web_check():
     st.write("終わりました。")
     """
 
-def web_check01():
-    import streamlit as st
-    # from bs4 import BeautifulSoup
-    from selenium import webdriver
-    from selenium.webdriver.chrome.options import Options
-    # import chromedriver_binary
-
-    # headlessモード
-    option = Options()
-    option.add_argument('--headless')
-    driver = webdriver.Chrome(options=option)
-
-    # Googleのトップページにアクセスしてbs4でパース
-    url = "https://google.com"
-    driver.get(url)
-    html = driver.page_source
-    # soup = BeautifulSoup(html, 'html.parser')
-
-    # 出力
-    # ll = filter(lambda x: len(x) > 0, soup.text.split(" "))
-    # for elem in ll:
-    #     st.write(elem)
-
-
 def web_table_get():
     import streamlit as st
     import pandas as pd
@@ -594,7 +570,7 @@ elif tool_name == "webからテーブル抽出":
 
 elif tool_name == "選択肢3":
     if st.checkbox("実行"):
-        web_check01()
+        web_check()
         
 elif tool_name == '終了':
     if st.checkbox("終了？"):
