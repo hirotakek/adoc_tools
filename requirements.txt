@@ -1,5 +1,6 @@
 streamlit
 pathlib
+helium
 selenium
 pandas
 openpyxl
