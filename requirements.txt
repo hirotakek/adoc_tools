@@ -6,6 +6,7 @@ helium
 webdriver_manager
 webdriver-manager
 pdfminer.six
+BeautifulSoup
 chardet
 qrcode
 PyPDF2
@@ -18,6 +19,7 @@ numpy
 scipy
 SpeechRecognition
 pathlib
+chromedriver_binary
 chromedriver_py
 xlrd
 xlutils
