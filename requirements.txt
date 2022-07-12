@@ -1,5 +1,6 @@
 streamlit
 pathlib
+scipy
 helium
 selenium
 pandas
