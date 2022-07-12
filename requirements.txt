@@ -5,7 +5,6 @@ selenium
 helium
 webdriver_manager
 pdfminer.six
-BeautifulSoup
 chardet
 qrcode
 PyPDF2
