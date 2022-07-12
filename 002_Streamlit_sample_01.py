@@ -346,12 +346,56 @@ def web_check():
     import helium
     import time
 
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+    from selenium.webdriver.chrome import service as fs
+
+
+    CHROMEDRIVER = '/opt/chrome/chromedriver'
+    URL = '{スクレイピングするURLを記載}'
+
+    options = Options()
+    options.add_argument('--headless')  
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+
+    chrome_service = fs.Service(executable_path=CHROMEDRIVER) 
+    driver = webdriver.Chrome(service=chrome_service, options=options)
+    driver.get(URL)
+    html = driver.page_source
+    st.write(html)
+
+    """
     browser = start_chrome('https://www.yahoo.co.jp/', headless=True)
 
     time.sleep(5)
     browser.quit()
 
     st.write("終わりました。")
+    """
+
+def web_check01():
+    import streamlit as st
+    from bs4 import BeautifulSoup
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+    import chromedriver_binary
+
+    # headlessモード
+    option = Options()
+    option.add_argument('--headless')
+    driver = webdriver.Chrome(options=option)
+
+    # Googleのトップページにアクセスしてbs4でパース
+    url = "https://google.com"
+    driver.get(url)
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+
+    # 出力
+    ll = filter(lambda x: len(x) > 0, soup.text.split(" "))
+    for elem in ll:
+        st.write(elem)
 
 
 def web_table_get():
@@ -550,7 +594,7 @@ elif tool_name == "webからテーブル抽出":
 
 elif tool_name == "選択肢3":
     if st.checkbox("実行"):
-        web_check()
+        web_check01()
         
 elif tool_name == '終了':
     if st.checkbox("終了？"):
