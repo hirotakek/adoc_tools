@@ -1,7 +1,6 @@
 streamlit
 pathlib
 selenium
-python3-tk
 pandas
 openpyxl
 webdriver_manager
