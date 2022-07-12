@@ -13,7 +13,7 @@ PyPDF2
 lxml
 playsound
 SpeechRecognition
-text2speech
+pyttsx3
 pybarcodes
 python-barcode
 gtts
