@@ -6,6 +6,7 @@ Created on Thu May 12 15:41:57 2022
 """
 
 import streamlit as st
+from helium import *
 
 # 複数選択
 # st.multiselect('ラベル', ['選択肢1', '選択肢2', '選択肢3'])
@@ -340,18 +341,28 @@ def pdf_char():
             st.write(page.extractText())
 
 def web_check():
-    from selenium import webdriver
-    from webdriver_manager.chrome import ChromeDriverManager
-    from selenium.webdriver.chrome.options import Options
+    import streamlit as st
+    import selenium
+    import helium
+    # from selenium import webdriver
+    # from webdriver_manager.chrome import ChromeDriverManager
+    # from selenium.webdriver.chrome.options import Options
     import time
 
+    browser = start_chrome('https://www.yahoo.co.jp/', headless=True)
+
+    """
     browser = webdriver.Chrome(ChromeDriverManager("102.0.5005.61").install())
     options = webdriver.chrome.options.Options()
     options.add_argument('--headless')
     browser.get('https://www.yahoo.co.jp/')
+    """
+
     time.sleep(5)
     browser.quit()
+
     st.write("終わりました。")
+
 
 def web_table_get():
     import streamlit as st
