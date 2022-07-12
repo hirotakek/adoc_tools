@@ -1,7 +1,6 @@
 streamlit
 pathlib
 selenium
-chromedriver_binary
 python3-tk
 pandas
 openpyxl
