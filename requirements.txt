@@ -3,6 +3,7 @@ pathlib
 helium
 selenium
 pandas
+Pillow
 openpyxl
 webdriver_manager
 pdfminer.six
@@ -11,6 +12,7 @@ qrcode
 PyPDF2
 lxml
 playsound
+speech_recognition
 pybarcodes
 python-barcode
 gtts
