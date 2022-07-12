@@ -12,7 +12,7 @@ qrcode
 PyPDF2
 lxml
 playsound
-speech_recognition
+SpeechRecognition
 pybarcodes
 python-barcode
 gtts
