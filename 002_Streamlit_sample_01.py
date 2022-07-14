@@ -346,13 +346,14 @@ def web_check():
     import helium
     import time
 
+    """
     from selenium import webdriver
     from selenium.webdriver.chrome.options import Options
     from selenium.webdriver.chrome import service as fs
 
 
-    CHROMEDRIVER = '/opt/chrome/chromedriver'
-    URL = '{スクレイピングするURLを記載}'
+    CHROMEDRIVER = 'C:\chromedriver.exe'
+    URL = 'https://www.yahoo.co.jp/'
 
     options = Options()
     options.add_argument('--headless')  
@@ -367,12 +368,15 @@ def web_check():
 
     """
     browser = start_chrome('https://www.yahoo.co.jp/', headless=True)
+    time.sleep(5)
+    html = browser.page_source
+    st.write(html)
 
     time.sleep(5)
     browser.quit()
 
     st.write("終わりました。")
-    """
+    
 
 def web_table_get():
     import streamlit as st
