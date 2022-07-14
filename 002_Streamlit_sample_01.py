@@ -343,8 +343,7 @@ def pdf_char():
 def web_check():
     import streamlit as st
     import selenium
-    import helium
-    from helium import *
+    # import helium
     import time
 
     browser = start_chrome('https://www.yahoo.co.jp/', headless=True)
