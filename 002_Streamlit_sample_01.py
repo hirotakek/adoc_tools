@@ -346,27 +346,6 @@ def web_check():
     import helium
     import time
 
-    """
-    from selenium import webdriver
-    from selenium.webdriver.chrome.options import Options
-    from selenium.webdriver.chrome import service as fs
-
-
-    CHROMEDRIVER = 'C:\chromedriver.exe'
-    URL = 'https://www.yahoo.co.jp/'
-
-    options = Options()
-    options.add_argument('--headless')  
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-
-    chrome_service = fs.Service(executable_path=CHROMEDRIVER) 
-    driver = webdriver.Chrome(service=chrome_service, options=options)
-    driver.get(URL)
-    html = driver.page_source
-    st.write(html)
-
-    """
     browser = start_chrome('https://www.yahoo.co.jp/', headless=True)
     time.sleep(5)
     html = browser.page_source
