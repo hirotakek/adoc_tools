@@ -348,7 +348,7 @@ def web_check():
     from selenium import webdriver
 
     driver = webdriver.Chrome("https://www.yahoo.co.jp")
-    browser = start_chrome('https://www.yahoo.co.jp/', headless=True)
+    browser = start_chrome('https://www.yahoo.co.jp', headless=True)
     time.sleep(5)
     html = browser.page_source
     st.write(html)
