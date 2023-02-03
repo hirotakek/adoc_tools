@@ -11,8 +11,8 @@ import streamlit as st
 # Streamlit が対応している任意のオブジェクトを可視化する (ここでは文字列)
 st.header("Chat GPT用")
 #st.text_input("質問を記入して下さい。")
-st.subheader('入力欄に質問等を書いてGoボタンを押して下さい。GPT-3が回答します。:')
-st.write('Googleの検索結果も欲しい場合は、右のボタンを「ON」にして下さい。:  ')
+st.caption('入力欄に質問等を書いてGoボタンを押して下さい。GPT-3が回答します。:')
+st.write('Googleの検索結果も欲しい場合は、Google検索ボタンを「ON」にして下さい。:  ')
 
 google_clicked = st.radio("Google検索", ["On", "OFF"])
 read_clicked = st.radio("読み上げ", ["日本語", "OFF", "English"])
