@@ -20,9 +20,12 @@ st.caption('入力に対する操作を指定して下さい。Go:チャット�
 
 col1, col2, col3 = st.columns(1)
 
-go_clicked = st.button("Go", key=1)
-clear_clicked = st.button("Clear", key=2)
-exit_clicked = st.button("Exit", key=3)
+with col1:
+    go_clicked = st.button("Go", key=1)
+with col2:
+    clear_clicked = st.button("Clear", key=2)
+with col3:
+    exit_clicked = st.button("Exit", key=3)
 st.caption('以下の出力欄に、GPT-3の結果、指定によりGoogleの結果と併せて表示内容が表示されます。')
 out_text = st.text_area("出力欄")
 
