@@ -19,7 +19,6 @@ pybarcodes
 python-barcode
 gtts
 openai
-csv
 PySimpleGUI
 pyaudio
 Langchain
