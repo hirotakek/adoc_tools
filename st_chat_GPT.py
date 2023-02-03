@@ -18,10 +18,10 @@ read_clicked = st.radio("読み上げ", ["OFF", "日本語", "English"], horizon
 in_text = st.text_area("入力欄")
 st.caption('入力に対する操作を指定して下さい。Go:チャット、Clear:消去、Exit:処理終了')
 
-go_clicked = st.button("Go")
-clear_clicked = st.button("Clear")
+go_clicked = st.button("Go"), 
+clear_clicked = st.button("Clear"),
 exit_clicked = st.button("Exit")
-st.caption('以下の出力欄に、GPT-3の結果、指定によりGoogleと併せて表示されます。')
+st.caption('以下の出力欄に、GPT-3の結果、指定によりGoogleの結果と併せて表示内容が表示されます。')
 out_text = st.text_area("出力欄")
 
 
