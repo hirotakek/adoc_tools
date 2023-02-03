@@ -18,7 +18,7 @@ read_clicked = st.radio("読み上げ", ["OFF", "日本語", "English"], horizon
 in_text = st.text_area("入力欄")
 st.caption('入力に対する操作を指定して下さい。Go:チャット、Clear:消去、Exit:処理終了')
 
-col1, col2, col3 = st.columns(1)
+col1, col2, col3 = st.columns(11)
 
 with col1:
     go_clicked = st.button("Go", key=1)
