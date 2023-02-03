@@ -14,7 +14,7 @@ st.header("Chat GPT用")
 st.caption('入力欄に質問等を書いてGoボタンを押して下さい。GPT-3が回答します。:')
 st.write('Googleの検索結果も欲しい場合は、Google検索ボタンを「ON」にして下さい。:  ')
 
-google_clicked = st.radio("Google検索", ["On", "OFF"])
+google_clicked = st.radio("Google検索", ["On", "OFF"], horizontal=False)
 read_clicked = st.radio("読み上げ", ["日本語", "OFF", "English"])
 go_clicked = st.button("Go")
 clear_clicked = st.button("Clear")
