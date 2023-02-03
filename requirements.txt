@@ -20,6 +20,5 @@ python-barcode
 gtts
 openai
 PySimpleGUI
-pyaudio
 Langchain
 google-search-results
